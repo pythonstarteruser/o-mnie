@@ -10,27 +10,21 @@
 
 <style>
 
-body {
-font-family: Arial, sans-serif;
+body{
+font-family:Arial, sans-serif;
 
-background-image: url("https://images.unsplash.com/photo-1518770660439-4636190af475");
-background-size: cover;
-background-attachment: fixed;
-background-position: center;
+background-image:url("https://images.unsplash.com/photo-1518770660439-4636190af475");
+background-size:cover;
+background-attachment:fixed;
 
-color: #f0f0f5;
-margin: 0;
-padding: 0;
+color:#f0f0f5;
+margin:0;
 }
 
-header {
-text-align: center;
-padding: 40px;
-background: rgba(0,0,0,0.6);
-}
-
-h1 {
-color: #ff6f61;
+header{
+text-align:center;
+padding:40px;
+background:rgba(0,0,0,0.6);
 }
 
 nav{
@@ -44,37 +38,29 @@ color:white;
 margin:0 15px;
 text-decoration:none;
 font-weight:bold;
+cursor:pointer;
 }
 
 nav a:hover{
 color:#61dafb;
 }
 
-section {
+.page{
+display:none;
 margin:40px;
 padding:20px;
 background:rgba(0,0,0,0.6);
 border-radius:10px;
 }
 
-h2 {
-color: #61dafb;
-border-bottom: 2px solid #61dafb;
-padding-bottom: 5px;
-}
-
-p {
-line-height: 1.6;
+h2{
+color:#61dafb;
+border-bottom:2px solid #61dafb;
+padding-bottom:5px;
 }
 
 ul{
 line-height:1.8;
-}
-
-footer{
-text-align:center;
-padding:20px;
-background:#111;
 }
 
 </style>
@@ -84,92 +70,106 @@ background:#111;
 <body>
 
 <header>
+
 <h1>Portfolio Borysa</h1>
 <p>Informatyk, gracz, twórca i miłośnik technologii</p>
+
 </header>
 
 <nav>
 
-<a href="#omnie">O mnie</a>
-<a href="#umiejetnosci">Umiejętności</a>
-<a href="#projekty">Projekty</a>
-<a href="#sprzet">Sprzęt</a>
-<a href="#kontakt">Kontakt</a>
+<a onclick="showPage('home')">Strona główna</a>
+<a onclick="showPage('omnie')">O mnie</a>
+<a onclick="showPage('umiejetnosci')">Umiejętności</a>
+<a onclick="showPage('projekty')">Projekty</a>
+<a onclick="showPage('sprzet')">Sprzęt</a>
+<a onclick="showPage('kontakt')">Kontakt</a>
 
 </nav>
 
-<section id="omnie">
+<div id="home" class="page">
+
+<h2>Witaj</h2>
+
+<p>To jest moje portfolio technologiczne.</p>
+
+</div>
+
+<div id="omnie" class="page">
+
 <h2>O mnie</h2>
 
-<p>
-Nazywam się Borys. Moją pasją jest informatyka, naprawa laptopów,
-programowanie oraz gry komputerowe, szczególnie Minecraft.
-Lubię eksperymentować ze sprzętem, tworzyć projekty i rozwijać swoje
-umiejętności w technikum informatycznym.
-</p>
+<p>Nazywam się Borys i interesuję się informatyką, sprzętem komputerowym i programowaniem.</p>
 
-</section>
+</div>
 
-<section id="umiejetnosci">
+<div id="umiejetnosci" class="page">
 
-<h2>Umiejętności i doświadczenie</h2>
+<h2>Umiejętności</h2>
 
-<p>
-Posiadam doświadczenie w naprawie systemów Windows, konfiguracji sieci,
-używaniu maszyn wirtualnych (VirtualBox), instalacji RAM,
-konfiguracji monitorów oraz pracy z Samsung DeX.
-</p>
+<ul>
 
-</section>
+<li>Naprawa Windows</li>
 
-<section id="projekty">
+<li>VirtualBox</li>
+
+<li>Konfiguracja sieci</li>
+
+<li>Multi monitor setup</li>
+
+</ul>
+
+</div>
+
+<div id="projekty" class="page">
 
 <h2>Projekty</h2>
 
 <ul>
 
-<li>Tworzenie i zarządzanie serwerami Minecraft</li>
+<li>Serwery Minecraft</li>
 
-<li>Eksperymenty z plikami świata Minecraft</li>
+<li>Skrypty BAT</li>
 
-<li>Skrypty BAT do automatyzacji komputera</li>
-
-<li>Testowanie systemów w VirtualBox</li>
-
-<li>Eksperymenty z Google TV</li>
+<li>Testy systemów w VM</li>
 
 </ul>
 
-</section>
+</div>
 
-<section id="sprzet">
+<div id="sprzet" class="page">
 
 <h2>Sprzęt</h2>
 
-<p>
-Laptop + dodatkowy monitor HDMI.
-Używam także Samsung DeX do pracy wielozadaniowej.
-</p>
+<p>Laptop + monitor HDMI + Samsung DeX.</p>
 
-</section>
+</div>
 
-<section id="kontakt">
+<div id="kontakt" class="page">
 
 <h2>Kontakt</h2>
 
-<p>Email: borys_stanczak@outlook.com</p>
+<p>Email: twojemail@example.com</p>
 
-<p>GitHub: github.com/pythonstarteruser</p>
+<p>GitHub: github.com/twojnick</p>
 
-<p>Minecraft nick: borysstanczak</p>
+</div>
 
-</section>
+<script>
 
-<footer>
+function showPage(pageId){
 
-<p>© 2026 Borys</p>
+let pages=document.querySelectorAll(".page");
 
-</footer>
+pages.forEach(p=>p.style.display="none");
+
+document.getElementById(pageId).style.display="block";
+
+}
+
+showPage("home");
+
+</script>
 
 </body>
 
