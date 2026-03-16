@@ -24,7 +24,6 @@ margin:0;
 header{
 text-align:center;
 padding:40px;
-background:rgba(0,0,0,0.6);
 }
 
 nav{
@@ -63,6 +62,15 @@ ul{
 line-height:1.8;
 }
 
+/* Efekt hover na logo */
+header img {
+  transition: transform 0.3s;
+}
+
+header img:hover {
+  transform: scale(1.1);
+}
+
 </style>
 
 </head>
@@ -70,10 +78,13 @@ line-height:1.8;
 <body>
 
 <header>
-
-<h1>Portfolio Borysa</h1>
-<p>Informatyk, gracz, twórca i miłośnik technologii</p>
-
+  <div style="display:flex; align-items:center; justify-content:center; gap:15px; background: rgba(0,0,0,0.6); padding:40px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/105/105574.png" alt="Logo Procesor" style="height:50px;">
+    <div>
+      <h1 style="margin:0;">Portfolio Borysa</h1>
+      <p style="margin:0;">Informatyk, gracz, twórca i miłośnik technologii</p>
+    </div>
+  </div>
 </header>
 
 <nav>
