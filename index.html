@@ -8,16 +8,16 @@
 
 <title>Portfolio Borysa</title>
 <link rel="icon" href="bruh.jpg" type="image/jpg">
+
 <style>
 
+/* ======================= STYL TERMINALU ======================= */
 body{
-font-family:Arial, sans-serif;
-
+font-family: "Courier New", monospace;
 background-image:url("https://images.unsplash.com/photo-1518770660439-4636190af475");
 background-size:cover;
 background-attachment:fixed;
-
-color:#f0f0f5;
+color:#00ff88;
 margin:0;
 }
 
@@ -33,7 +33,7 @@ text-align:center;
 }
 
 nav a{
-color:white;
+color:#00ff88;
 margin:0 15px;
 text-decoration:none;
 font-weight:bold;
@@ -42,14 +42,18 @@ cursor:pointer;
 
 nav a:hover{
 color:#61dafb;
+text-shadow:0 0 5px #00ff88;
 }
 
+/* ======================= STRONY ======================= */
 .page{
 display:none;
 margin:40px;
 padding:20px;
-background:rgba(0,0,0,0.6);
+background:rgba(0,0,0,0.7);
 border-radius:10px;
+opacity:0;
+transition:opacity 0.5s;
 }
 
 h2{
@@ -71,16 +75,38 @@ header img:hover {
   transform: scale(1.1);
 }
 
+/* ======================= TYPING EFFECT ======================= */
+.typing{
+border-right:2px solid #00ff88;
+white-space:nowrap;
+overflow:hidden;
+display:inline-block;
+}
+
+/* ======================= KARTY / BOXY ======================= */
+.card{
+border:1px solid #00ff88;
+padding:10px;
+margin:10px 0;
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.03);
+}
+
 </style>
 
 </head>
 
 <body>
 
-
+<header>
+<h1>Portfolio Borysa</h1>
+<p>Informatyk, gracz, twórca i miłośnik technologii</p>
+</header>
 
 <nav>
-
 <a onclick="showPage('home')">Strona główna</a>
 <a onclick="showPage('omnie')">O mnie</a>
 <a onclick="showPage('umiejetnosci')">Umiejętności</a>
@@ -90,87 +116,92 @@ header img:hover {
 <a href="kompetencje.pdf" target="_blank">Moje kompetencje</a>
 </nav>
 
+<!-- ======================= STRONY ======================= -->
+
 <div id="home" class="page">
-
-<h2>Witaj</h2>
-
+<h2 class="typing" id="terminalHome"></h2>
 <p>To jest moje portfolio technologiczne.</p>
-
 </div>
 
 <div id="omnie" class="page">
-
 <h2>O mnie</h2>
-
 <p>Nazywam się Borys i interesuję się informatyką, sprzętem komputerowym i programowaniem.</p>
-
 </div>
 
 <div id="umiejetnosci" class="page">
-
 <h2>Umiejętności</h2>
-
 <ul>
-
 <li>Naprawa Windows</li>
-
 <li>VirtualBox</li>
-
 <li>Konfiguracja sieci</li>
-
 <li>Multi monitor setup</li>
-
 </ul>
-
 </div>
 
 <div id="projekty" class="page">
-
 <h2>Projekty</h2>
-
 <ul>
-
 <li>Serwery Minecraft</li>
-
 <li>Skrypty BAT</li>
-
 <li>Testy systemów w VM</li>
-
 </ul>
-
 </div>
 
 <div id="sprzet" class="page">
-
 <h2>Sprzęt</h2>
-
 <p>Laptop + monitor HDMI + Samsung DeX.</p>
-
 </div>
 
 <div id="kontakt" class="page">
-
 <h2>Kontakt</h2>
-
 <p>Email: borys_stanczak@outlook.com</p>
-
 <p>GitHub: github.com/pythonstarteruser</p>
-
 </div>
 
 <script>
-
+/* ======================= FUNKCJA PRZEŁĄCZANIA STRON ======================= */
 function showPage(pageId){
+  let pages=document.querySelectorAll(".page");
+  pages.forEach(p=>{
+    p.style.opacity=0;
+    setTimeout(()=>p.style.display="none", 200);
+  });
+  let page=document.getElementById(pageId);
+  setTimeout(()=>{
+    page.style.display="block";
+    setTimeout(()=>page.style.opacity=1,50);
+  },200);
+}
+showPage("home");
 
-let pages=document.querySelectorAll(".page");
+/* ======================= TYPING EFFECT / KOMENDY ======================= */
+const terminalText = [
+  "> booting system...",
+  "> loading modules...",
+  "> initializing portfolio...",
+  "> welcome!"
+];
 
-pages.forEach(p=>p.style.display="none");
+let i=0;
+let charIndex=0;
+const typingElement=document.getElementById("terminalHome");
 
-document.getElementById(pageId).style.display="block";
-
+function type(){
+  if(i<terminalText.length){
+    if(charIndex<terminalText[i].length){
+      typingElement.textContent += terminalText[i][charIndex];
+      charIndex++;
+      setTimeout(type, 80);
+    } else {
+      typingElement.textContent += "\n";
+      i++;
+      charIndex=0;
+      setTimeout(type, 400);
+    }
+  }
 }
 
-showPage("home");
+type();
 
 </script>
 
