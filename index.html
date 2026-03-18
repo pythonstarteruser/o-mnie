@@ -14,7 +14,7 @@ font-family: "Courier New", monospace;
 background-image:url("https://images.unsplash.com/photo-1518770660439-4636190af475");
 background-size:cover;
 background-attachment:fixed;
-color:#00ff88;
+color:#00ff00; /* hackerski zielony */
 margin:0;
 transition: background 0.5s, color 0.5s;
 }
@@ -41,7 +41,7 @@ nav.light{
 background:#ccc;
 }
 nav a{
-color:#00ff88;
+color:#00ff00;
 margin:0 15px;
 text-decoration:none;
 font-weight:bold;
@@ -51,7 +51,7 @@ nav.light a{
 color:#111;
 }
 nav a:hover{
-text-shadow:0 0 5px #00ff88;
+text-shadow:0 0 5px #00ff00;
 }
 
 /* PAGE BOX */
@@ -86,7 +86,7 @@ line-height:1.8;
 
 /* TYPING EFFECT */
 .typing{
-border-right:2px solid #00ff88;
+border-right:2px solid #00ff00;
 white-space:nowrap;
 overflow:hidden;
 display:inline-block;
@@ -94,7 +94,7 @@ display:inline-block;
 
 /* KARTY */
 .card{
-border:1px solid #00ff88;
+border:1px solid #00ff00;
 padding:10px;
 margin:10px 0;
 border-radius:5px;
@@ -103,12 +103,12 @@ cursor:default;
 }
 .card:hover{
 transform:scale(1.05);
-box-shadow:0 0 10px #00ff88;
+box-shadow:0 0 10px #00ff00;
 }
 
 /* TYPING CURSOR */
 .blink{
-border-right:2px solid #00ff88;
+border-right:2px solid #00ff00;
 animation: blink 0.7s infinite;
 }
 @keyframes blink{50%{border-color:transparent;}}
@@ -118,7 +118,7 @@ animation: blink 0.7s infinite;
 position:fixed;
 top:10px;
 right:10px;
-background:#00ff88;
+background:#00ff00;
 color:#000;
 border:none;
 padding:10px 15px;
@@ -210,8 +210,8 @@ function showPage(pageId){
 }
 showPage("home");
 
-/* ======================= TYPING EFFECT + MINI TERMINAL ======================= */
-const terminalText = [
+/* ======================= TYPING + KOLEJNE ZNIKANIE ======================= */
+const terminalLines = [
   "> booting system...",
   "> loading modules...",
   "> New user detected: Guest",
@@ -219,23 +219,37 @@ const terminalText = [
   "> welcome!"
 ];
 
-let i=0, charIndex=0;
-const typingElement=document.getElementById("terminalHome");
-function type(){
-  if(i<terminalText.length){
-    if(charIndex<terminalText[i].length){
-      typingElement.textContent += terminalText[i][charIndex];
+const typingElement = document.getElementById("terminalHome");
+let lineIndex = 0;
+let charIndex = 0;
+
+function typeLine() {
+  if (lineIndex < terminalLines.length) {
+    const line = terminalLines[lineIndex];
+    if (charIndex < line.length) {
+      typingElement.textContent += line[charIndex];
       charIndex++;
-      setTimeout(type, 80);
+      setTimeout(typeLine, 80);
     } else {
       typingElement.textContent += "\n";
-      i++;
-      charIndex=0;
-      setTimeout(type, 400);
+      // Po napisaniu całej linii zaczekaj 500ms i zniknij
+      setTimeout(()=>{
+        let currentContent = typingElement.textContent.split("\n");
+        currentContent.shift(); // usuń pierwszą linijkę
+        typingElement.textContent = currentContent.join("\n");
+        charIndex = 0;
+        lineIndex++;
+        typeLine();
+      }, 500);
     }
+  } else {
+    // Po ostatniej linii pokaż stronę home
+    typingElement.textContent = "> Strona główna"; 
+    showPage('home');
   }
 }
-type();
+
+typeLine();
 
 /* ======================= MINI INTERAKTYWNY TERMINAL ======================= */
 const commands = {
@@ -257,20 +271,13 @@ document.addEventListener('keydown', function(e){
   if(e.key==='Enter'){
     if(commands[inputText]){
       if(typeof commands[inputText]==='function') commands[inputText]();
-      else terminalText.push(commands[inputText]);
-    } else terminalText.push('> Unknown command: '+inputText);
+      else terminalLines.push(commands[inputText]);
+    } else terminalLines.push('> Unknown command: '+inputText);
     inputText="";
-    typeMiniTerminal();
+    typingElement.textContent="> Strona główna"; // pokazujemy home po komendzie
   }
   commandInput.textContent=inputText;
 });
-
-function typeMiniTerminal(){
-  typingElement.textContent="";
-  i=0;
-  charIndex=0;
-  type();
-}
 
 /* ======================= DARK/LIGHT MODE ======================= */
 document.getElementById('modeSwitch').addEventListener('click', ()=>{
