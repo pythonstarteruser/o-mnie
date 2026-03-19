@@ -8,29 +8,38 @@
 <link rel="icon" href="bruh.jpg" type="image/jpg">
 
 <style>
-/* ======================= STYL TERMINALOWY ======================= */
+
+/* ======================= BODY ======================= */
 body{
 font-family: "Courier New", monospace;
 background-image:url("https://images.unsplash.com/photo-1518770660439-4636190af475");
 background-size:cover;
 background-attachment:fixed;
-color:#00ff00; /* hackerski zielony */
+color:#00ff00;
 margin:0;
-transition: background 0.5s, color 0.5s;
 }
 
-/* DARK / LIGHT MODE */
-body.light{
-background:#f0f0f5;
-color:#111;
+/* UKRYJ NA START */
+#mainHeader,
+#mainNav,
+.page{
+display:none;
+opacity:0;
+transition:opacity 1s;
+}
+
+/* BOOT SCREEN */
+#bootScreen{
+padding:40px;
+color:#00ff00;
+font-family:"Courier New", monospace;
+white-space:pre-line;
 }
 
 /* HEADER */
 header{
 text-align:center;
 padding:40px;
-opacity:0;
-transition:opacity 1s;
 }
 
 /* MENU */
@@ -38,12 +47,8 @@ nav{
 background:#111;
 padding:15px;
 text-align:center;
-opacity:0;
-transition:opacity 1s;
 }
-nav.light{
-background:#ccc;
-}
+
 nav a{
 color:#00ff00;
 margin:0 15px;
@@ -51,25 +56,17 @@ text-decoration:none;
 font-weight:bold;
 cursor:pointer;
 }
-nav.light a{
-color:#111;
-}
+
 nav a:hover{
 text-shadow:0 0 5px #00ff00;
 }
 
-/* PAGE BOX */
+/* PAGE */
 .page{
-display:none;
 margin:40px;
 padding:20px;
 background:rgba(0,0,0,0.7);
 border-radius:10px;
-opacity:0;
-transition:opacity 1s;
-}
-.page.light{
-background:rgba(255,255,255,0.8);
 }
 
 /* H2 */
@@ -78,22 +75,10 @@ color:#61dafb;
 border-bottom:2px solid #61dafb;
 padding-bottom:5px;
 }
-h2.light{
-color:#111;
-border-color:#111;
-}
 
-/* LISTY */
+/* LIST */
 ul{
 line-height:1.8;
-}
-
-/* TYPING EFFECT */
-.typing{
-border-right:2px solid #00ff00;
-white-space:nowrap;
-overflow:hidden;
-display:inline-block;
 }
 
 /* KARTY */
@@ -103,50 +88,43 @@ padding:10px;
 margin:10px 0;
 border-radius:5px;
 transition:0.3s;
-cursor:default;
 }
+
 .card:hover{
 transform:scale(1.05);
 box-shadow:0 0 10px #00ff00;
 }
 
-/* TYPING CURSOR */
+/* CURSOR */
 .blink{
 border-right:2px solid #00ff00;
 animation: blink 0.7s infinite;
 }
-@keyframes blink{50%{border-color:transparent;}}
 
-/* DARK/LIGHT BUTTON */
-#modeSwitch{
-position:fixed;
-top:10px;
-right:10px;
-background:#00ff00;
-color:#000;
-border:none;
-padding:10px 15px;
-cursor:pointer;
-border-radius:5px;
-transition:all 0.3s;
+@keyframes blink{
+50%{border-color:transparent;}
 }
-body.light #modeSwitch{
-background:#111;
-color:#fff;
-}
+
 </style>
 </head>
 
 <body>
 
+<!-- ======================= BOOT SCREEN ======================= -->
+<div id="bootScreen">
+<pre id="bootText"></pre>
+</div>
+
+<!-- DŹWIĘK -->
+<audio id="bootSound" src="https://www.soundjay.com/mechanical/sounds/computer-startup-1.mp3"></audio>
+
+<!-- ======================= HEADER ======================= -->
 <header id="mainHeader">
 <h1>Portfolio Borysa</h1>
 <p>Informatyk, gracz, twórca i miłośnik technologii</p>
 </header>
 
-<!-- DARK/LIGHT MODE SWITCH -->
-<button id="modeSwitch">Toggle Dark/Light</button>
-
+<!-- ======================= MENU ======================= -->
 <nav id="mainNav">
 <a onclick="showPage('home')">Strona główna</a>
 <a onclick="showPage('omnie')">O mnie</a>
@@ -160,7 +138,7 @@ color:#fff;
 <!-- ======================= STRONY ======================= -->
 
 <div id="home" class="page">
-<h2 class="typing" id="terminalHome"></h2>
+<h2>> Strona główna</h2>
 <p>> To jest moje portfolio technologiczne.</p>
 <p>> Wpisz komendę: <span id="commandInput" class="blink"></span></p>
 </div>
@@ -199,101 +177,119 @@ color:#fff;
 </div>
 
 <script>
+
 /* ======================= PAGE SWITCH ======================= */
 function showPage(pageId){
-  let pages=document.querySelectorAll(".page");
-  pages.forEach(p=>{
-    p.style.display="none";
-    p.style.opacity=0;
-  });
-  let page=document.getElementById(pageId);
-  setTimeout(()=>{
-    page.style.display="block";
-    setTimeout(()=>page.style.opacity=1,50);
-  },50);
+let pages=document.querySelectorAll(".page");
+
+pages.forEach(p=>{
+p.style.display="none";
+p.style.opacity=0;
+});
+
+let page=document.getElementById(pageId);
+
+setTimeout(()=>{
+page.style.display="block";
+setTimeout(()=>page.style.opacity=1,50);
+},50);
 }
 
-/* ======================= BOOT SEQUENCE + FADE-IN STRONA ======================= */
-const terminalLines = [
-  "> booting system...",
-  "> loading modules...",
-  "> New user detected: Guest",
-  "> initializing portfolio...",
-  "> welcome!"
+/* ======================= BOOT SEQUENCE ======================= */
+const bootLines = [
+"> booting system...",
+"> loading modules...",
+"> checking Hardware...",
+"> detecting peripheals...",
+"> New user detected: Guest",
+"> Logging in as Guest...",
+"> initializing portfolio...",
+"> welcome!"
 ];
 
-const typingElement = document.getElementById("terminalHome");
-const header = document.getElementById("mainHeader");
-const nav = document.getElementById("mainNav");
+const bootText = document.getElementById("bootText");
+const bootSound = document.getElementById("bootSound");
 
-let lineIndex = 0;
-let charIndex = 0;
+let line=0;
+let char=0;
 
-function typeLine() {
-  if(lineIndex < terminalLines.length){
-    const line = terminalLines[lineIndex];
-    if(charIndex < line.length){
-      typingElement.textContent += line[charIndex];
-      charIndex++;
-      setTimeout(typeLine, 80);
-    } else {
-      typingElement.textContent += "\n";
-      setTimeout(()=>{
-        let currentContent = typingElement.textContent.split("\n");
-        currentContent.shift(); // usuń pierwszą linijkę
-        typingElement.textContent = currentContent.join("\n");
-        charIndex = 0;
-        lineIndex++;
-        typeLine();
-      }, 500);
-    }
-  } else {
-    // Po ostatniej linii > welcome! fade-in header, nav i home page
-    typingElement.textContent = "> Strona główna";
-    // fade in header, nav, home page
-    [header, nav, document.getElementById('home')].forEach(el=>{
-      el.style.display='block';
-      setTimeout(()=>el.style.opacity=1,50);
-    });
-  }
+function bootSequence(){
+
+if(line===0 && char===0){
+bootSound.play(); // odpal dźwięk
 }
 
-typeLine();
+if(line < bootLines.length){
 
-/* ======================= MINI INTERAKTYWNY TERMINAL ======================= */
+if(char < bootLines[line].length){
+bootText.textContent += bootLines[line][char];
+char++;
+setTimeout(bootSequence, 50);
+
+}else{
+bootText.textContent += "\n";
+line++;
+char=0;
+setTimeout(bootSequence, 400);
+}
+
+}else{
+
+setTimeout(startPortfolio, 500);
+
+}
+
+}
+
+function startPortfolio(){
+
+document.getElementById("bootScreen").style.display="none";
+
+let elements=[
+document.getElementById("mainHeader"),
+document.getElementById("mainNav"),
+document.getElementById("home")
+];
+
+elements.forEach(el=>{
+el.style.display="block";
+setTimeout(()=>el.style.opacity=1,50);
+});
+
+}
+
+bootSequence();
+
+/* ======================= MINI TERMINAL ======================= */
 const commands = {
-  help: 'Dostępne komendy: home, omnie, umiejetnosci, projekty, sprzet, kontakt',
-  home: ()=>showPage('home'),
-  omnie: ()=>showPage('omnie'),
-  umiejetnosci: ()=>showPage('umiejetnosci'),
-  projekty: ()=>showPage('projekty'),
-  sprzet: ()=>showPage('sprzet'),
-  kontakt: ()=>showPage('kontakt')
+home: ()=>showPage('home'),
+omnie: ()=>showPage('omnie'),
+umiejetnosci: ()=>showPage('umiejetnosci'),
+projekty: ()=>showPage('projekty'),
+sprzet: ()=>showPage('sprzet'),
+kontakt: ()=>showPage('kontakt')
 };
 
 const commandInput = document.getElementById("commandInput");
 let inputText="";
 
 document.addEventListener('keydown', function(e){
-  if(e.key.length===1) { inputText += e.key; }
-  if(e.key==='Backspace'){ inputText=inputText.slice(0,-1); }
-  if(e.key==='Enter'){
-    if(commands[inputText]){
-      if(typeof commands[inputText]==='function') commands[inputText]();
-      else typingElement.textContent += "\n"+commands[inputText];
-    } else typingElement.textContent += "\n> Unknown command: "+inputText;
-    inputText="";
-  }
-  commandInput.textContent=inputText;
+
+if(e.key.length===1){ inputText+=e.key; }
+
+if(e.key==='Backspace'){ inputText=inputText.slice(0,-1); }
+
+if(e.key==='Enter'){
+if(commands[inputText]){
+commands[inputText]();
+}
+inputText="";
+}
+
+commandInput.textContent=inputText;
+
 });
 
-/* ======================= DARK/LIGHT MODE ======================= */
-document.getElementById('modeSwitch').addEventListener('click', ()=>{
-  document.body.classList.toggle('light');
-  document.getElementById('mainNav').classList.toggle('light');
-  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('light'));
-  document.querySelectorAll('h2').forEach(h=>h.classList.toggle('light'));
-});
 </script>
 
 </body>
