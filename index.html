@@ -22,29 +22,15 @@ opacity:0;
 transition:1s;
 }
 
-/* GRUB MENU */
-#grub{
-padding:40px;
-}
-
-.grub-item{
-padding:10px;
-cursor:pointer;
-}
-
-.grub-item.active{
-background:#00ff00;
-color:black;
-}
+/* GRUB */
+#grub{padding:40px;}
+.grub-item{padding:10px;cursor:pointer;}
+.grub-item.active{background:#00ff00;color:black;}
 
 /* BOOT */
-#bootScreen{
-display:none;
-padding:40px;
-white-space:pre-line;
-}
+#bootScreen{display:none;padding:40px;white-space:pre-line;}
 
-/* NORMALNA STRONA */
+/* STRONA */
 header{text-align:center;padding:40px;}
 
 nav{
@@ -52,7 +38,6 @@ background:#111;
 padding:15px;
 text-align:center;
 }
-
 nav a{
 color:#00ff00;
 margin:0 15px;
@@ -67,38 +52,38 @@ background:rgba(0,0,0,0.7);
 border-radius:10px;
 }
 
-/* CURSOR */
+.card{
+border:1px solid #00ff00;
+padding:10px;
+margin:10px 0;
+}
+
 .blink{
 border-right:2px solid #00ff00;
 animation:blink 0.7s infinite;
 }
-
 @keyframes blink{50%{border-color:transparent}}
-
 </style>
 </head>
 
 <body>
 
-<!-- ================= GRUB MENU ================= -->
+<!-- GRUB -->
 <div id="grub">
 <h2>GNU GRUB</h2>
 <p>Wybierz system:</p>
-
 <div class="grub-item active" id="option1">> Portfolio OS</div>
-<div class="grub-item">  Advanced options</div>
-
 <p>(Enter aby uruchomić)</p>
 </div>
 
-<!-- ================= BOOT ================= -->
+<!-- BOOT -->
 <div id="bootScreen">
 <pre id="bootText"></pre>
 </div>
 
 <audio id="bootSound" src="https://www.soundjay.com/mechanical/sounds/computer-startup-1.mp3"></audio>
 
-<!-- ================= PORTFOLIO ================= -->
+<!-- PORTFOLIO -->
 <header id="mainHeader">
 <h1>Portfolio Borysa</h1>
 <p>Informatyk, gracz, twórca i miłośnik technologii</p>
@@ -114,20 +99,50 @@ animation:blink 0.7s infinite;
 <a href="kompetencje.pdf" target="_blank">Moje kompetencje</a>
 </nav>
 
+<!-- STRONY -->
+
 <div id="home" class="page">
 <h2>> Strona główna</h2>
-<p>> Test klawiatury jeśli chcesz: <span id="commandInput" class="blink"></span></p>
+<p>To jest moje portfolio technologiczne.</p>
+<p>> Wpisz komendę: <span id="commandInput" class="blink"></span></p>
 </div>
 
-<div id="omnie" class="page"><h2>O mnie</h2></div>
-<div id="umiejetnosci" class="page"><h2>Umiejętności</h2></div>
-<div id="projekty" class="page"><h2>Projekty</h2></div>
-<div id="sprzet" class="page"><h2>Sprzęt</h2></div>
-<div id="kontakt" class="page"><h2>Kontakt</h2></div>
+<div id="omnie" class="page">
+<h2>O mnie</h2>
+<p>Nazywam się Borys i interesuję się informatyką, sprzętem komputerowym i programowaniem.</p>
+</div>
+
+<div id="umiejetnosci" class="page">
+<h2>Umiejętności</h2>
+<ul>
+<li>Naprawa Windows</li>
+<li>VirtualBox</li>
+<li>Konfiguracja sieci</li>
+<li>Multi monitor setup</li>
+</ul>
+</div>
+
+<div id="projekty" class="page">
+<h2>Projekty</h2>
+<div class="card">Serwery Minecraft</div>
+<div class="card">Skrypty BAT</div>
+<div class="card">Testy systemów w VM</div>
+</div>
+
+<div id="sprzet" class="page">
+<h2>Sprzęt</h2>
+<p>Laptop + monitor HDMI + Samsung DeX.</p>
+</div>
+
+<div id="kontakt" class="page">
+<h2>Kontakt</h2>
+<p>Email: borys_stanczak@outlook.com</p>
+<p>GitHub: github.com/pythonstarteruser</p>
+</div>
 
 <script>
 
-/* ================= PAGE SWITCH ================= */
+/* PAGE SWITCH */
 function showPage(pageId){
 document.querySelectorAll(".page").forEach(p=>{
 p.style.display="none";
@@ -138,13 +153,10 @@ page.style.display="block";
 setTimeout(()=>page.style.opacity=1,50);
 }
 
-/* ================= GRUB START ================= */
+/* GRUB START */
 document.addEventListener("keydown", function(e){
-if(e.key==="Enter"){
-startBoot();
-}
+if(e.key==="Enter") startBoot();
 });
-
 document.getElementById("option1").onclick=startBoot;
 
 function startBoot(){
@@ -153,14 +165,10 @@ document.getElementById("bootScreen").style.display="block";
 bootSequence();
 }
 
-/* ================= BOOT ================= */
+/* BOOT */
 const lines=[
 "> booting system...",
 "> loading modules...",
-"> checking hardware...",
-"> detecting peripherals...",
-"> New user detected: Guest",
-"> Logging as Guest...",
 "> initializing portfolio...",
 "> welcome!"
 ];
@@ -171,11 +179,9 @@ const sound=document.getElementById("bootSound");
 let l=0,c=0;
 
 function bootSequence(){
-
 if(l===0 && c===0) sound.play();
 
 if(l<lines.length){
-
 if(c<lines[l].length){
 bootText.textContent+=lines[l][c];
 c++;
@@ -185,24 +191,21 @@ bootText.textContent+="\n";
 l++;c=0;
 setTimeout(bootSequence,300);
 }
-
 }else{
 setTimeout(startPortfolio,500);
 }
 }
 
 function startPortfolio(){
-
 document.getElementById("bootScreen").style.display="none";
 
 [mainHeader,mainNav,home].forEach(el=>{
 el.style.display="block";
 setTimeout(()=>el.style.opacity=1,50);
 });
-
 }
 
-/* ================= TERMINAL ================= */
+/* TERMINAL */
 const commands={
 home:()=>showPage("home"),
 omnie:()=>showPage("omnie"),
