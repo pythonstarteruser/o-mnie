@@ -29,6 +29,8 @@ color:#111;
 header{
 text-align:center;
 padding:40px;
+opacity:0;
+transition:opacity 1s;
 }
 
 /* MENU */
@@ -36,6 +38,8 @@ nav{
 background:#111;
 padding:15px;
 text-align:center;
+opacity:0;
+transition:opacity 1s;
 }
 nav.light{
 background:#ccc;
@@ -62,7 +66,7 @@ padding:20px;
 background:rgba(0,0,0,0.7);
 border-radius:10px;
 opacity:0;
-transition:opacity 0.5s;
+transition:opacity 1s;
 }
 .page.light{
 background:rgba(255,255,255,0.8);
@@ -135,7 +139,7 @@ color:#fff;
 
 <body>
 
-<header>
+<header id="mainHeader">
 <h1>Portfolio Borysa</h1>
 <p>Informatyk, gracz, twórca i miłośnik technologii</p>
 </header>
@@ -158,7 +162,7 @@ color:#fff;
 <div id="home" class="page">
 <h2 class="typing" id="terminalHome"></h2>
 <p>> To jest moje portfolio technologiczne.</p>
-<p>> Poklikaj sobie w klawiaturę: <span id="commandInput" class="blink"></span></p>
+<p>> Wpisz komendę: <span id="commandInput" class="blink"></span></p>
 </div>
 
 <div id="omnie" class="page">
@@ -199,18 +203,17 @@ color:#fff;
 function showPage(pageId){
   let pages=document.querySelectorAll(".page");
   pages.forEach(p=>{
+    p.style.display="none";
     p.style.opacity=0;
-    setTimeout(()=>p.style.display="none",200);
   });
   let page=document.getElementById(pageId);
   setTimeout(()=>{
     page.style.display="block";
     setTimeout(()=>page.style.opacity=1,50);
-  },200);
+  },50);
 }
-showPage("home");
 
-/* ======================= TYPING + KOLEJNE ZNIKANIE ======================= */
+/* ======================= BOOT SEQUENCE + FADE-IN STRONA ======================= */
 const terminalLines = [
   "> booting system...",
   "> loading modules...",
@@ -220,19 +223,21 @@ const terminalLines = [
 ];
 
 const typingElement = document.getElementById("terminalHome");
+const header = document.getElementById("mainHeader");
+const nav = document.getElementById("mainNav");
+
 let lineIndex = 0;
 let charIndex = 0;
 
 function typeLine() {
-  if (lineIndex < terminalLines.length) {
+  if(lineIndex < terminalLines.length){
     const line = terminalLines[lineIndex];
-    if (charIndex < line.length) {
+    if(charIndex < line.length){
       typingElement.textContent += line[charIndex];
       charIndex++;
       setTimeout(typeLine, 80);
     } else {
       typingElement.textContent += "\n";
-      // Po napisaniu całej linii zaczekaj 500ms i zniknij
       setTimeout(()=>{
         let currentContent = typingElement.textContent.split("\n");
         currentContent.shift(); // usuń pierwszą linijkę
@@ -243,9 +248,13 @@ function typeLine() {
       }, 500);
     }
   } else {
-    // Po ostatniej linii pokaż stronę home
-    typingElement.textContent = "> Strona główna"; 
-    showPage('home');
+    // Po ostatniej linii > welcome! fade-in header, nav i home page
+    typingElement.textContent = "> Strona główna";
+    // fade in header, nav, home page
+    [header, nav, document.getElementById('home')].forEach(el=>{
+      el.style.display='block';
+      setTimeout(()=>el.style.opacity=1,50);
+    });
   }
 }
 
@@ -271,10 +280,9 @@ document.addEventListener('keydown', function(e){
   if(e.key==='Enter'){
     if(commands[inputText]){
       if(typeof commands[inputText]==='function') commands[inputText]();
-      else terminalLines.push(commands[inputText]);
-    } else terminalLines.push('> Unknown command: '+inputText);
+      else typingElement.textContent += "\n"+commands[inputText];
+    } else typingElement.textContent += "\n> Unknown command: "+inputText;
     inputText="";
-    typingElement.textContent="> Strona główna"; // pokazujemy home po komendzie
   }
   commandInput.textContent=inputText;
 });
