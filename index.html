@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +29,7 @@ transition:1s;
 /* BOOT */
 #bootScreen{display:none;padding:40px;white-space:pre-line;}
 
-/* STRONA */
+/* STRONY */
 header{text-align:center;padding:40px;}
 
 nav{
@@ -63,6 +62,11 @@ border-right:2px solid #00ff00;
 animation:blink 0.7s infinite;
 }
 @keyframes blink{50%{border-color:transparent}}
+
+#loadingBar{
+margin-top:20px;
+font-family:"Courier New", monospace;
+}
 </style>
 </head>
 
@@ -79,6 +83,7 @@ animation:blink 0.7s infinite;
 <!-- BOOT -->
 <div id="bootScreen">
 <pre id="bootText"></pre>
+<div id="loadingBar"></div>
 </div>
 
 <audio id="bootSound" src="https://www.soundjay.com/mechanical/sounds/computer-startup-1.mp3"></audio>
@@ -100,7 +105,6 @@ animation:blink 0.7s infinite;
 </nav>
 
 <!-- STRONY -->
-
 <div id="home" class="page">
 <h2>> Strona główna</h2>
 <p>To jest moje portfolio technologiczne.</p>
@@ -142,7 +146,7 @@ animation:blink 0.7s infinite;
 
 <script>
 
-/* PAGE SWITCH */
+/* ================= PAGE SWITCH ================= */
 function showPage(pageId){
 document.querySelectorAll(".page").forEach(p=>{
 p.style.display="none";
@@ -153,7 +157,7 @@ page.style.display="block";
 setTimeout(()=>page.style.opacity=1,50);
 }
 
-/* GRUB START */
+/* ================= GRUB START ================= */
 document.addEventListener("keydown", function(e){
 if(e.key==="Enter") startBoot();
 });
@@ -165,22 +169,20 @@ document.getElementById("bootScreen").style.display="block";
 bootSequence();
 }
 
-/* BOOT */
+/* ================= BOOT + LOADING BAR ================= */
 const lines=[
 "> booting system...",
 "> loading modules...",
 "> initializing portfolio...",
 "> welcome!"
 ];
-
 const bootText=document.getElementById("bootText");
+const loadingBar=document.getElementById("loadingBar");
 const sound=document.getElementById("bootSound");
-
 let l=0,c=0;
 
 function bootSequence(){
 if(l===0 && c===0) sound.play();
-
 if(l<lines.length){
 if(c<lines[l].length){
 bootText.textContent+=lines[l][c];
@@ -189,6 +191,7 @@ setTimeout(bootSequence,40);
 }else{
 bootText.textContent+="\n";
 l++;c=0;
+updateLoadingBar(l/lines.length);
 setTimeout(bootSequence,300);
 }
 }else{
@@ -196,23 +199,32 @@ setTimeout(startPortfolio,500);
 }
 }
 
+function updateLoadingBar(percent){
+let blocks=Math.floor(percent*20);
+let bar='['+ '█'.repeat(blocks) + '░'.repeat(20-blocks) + ']';
+loadingBar.textContent=bar+' '+Math.floor(percent*100)+'%';
+}
+
+/* ================= START PORTFOLIO ================= */
 function startPortfolio(){
 document.getElementById("bootScreen").style.display="none";
-
 [mainHeader,mainNav,home].forEach(el=>{
 el.style.display="block";
 setTimeout(()=>el.style.opacity=1,50);
 });
 }
 
-/* TERMINAL */
+/* ================= TERMINAL + EASTER EGGS ================= */
 const commands={
 home:()=>showPage("home"),
 omnie:()=>showPage("omnie"),
 umiejetnosci:()=>showPage("umiejetnosci"),
 projekty:()=>showPage("projekty"),
 sprzet:()=>showPage("sprzet"),
-kontakt:()=>showPage("kontakt")
+kontakt:()=>showPage("kontakt"),
+sudo:()=>alert("Access denied"),
+hack:()=>alert("Nice try, hacker!"),
+exit:()=>location.reload()
 };
 
 let input="";
@@ -226,7 +238,6 @@ if(e.key==="Enter"){
 if(commands[input]) commands[input]();
 input="";
 }
-
 inputSpan.textContent=input;
 });
 
