@@ -67,6 +67,19 @@ animation:blink 0.7s infinite;
 margin-top:20px;
 font-family:"Courier New", monospace;
 }
+.window{
+position:absolute;
+width:300px;
+background:#222;
+border:1px solid #555;
+padding:10px;
+border-radius:5px;
+}
+
+.window-header{
+font-weight:bold;
+margin-bottom:10px;
+}
 </style>
 </head>
 
@@ -174,7 +187,7 @@ const lines=[
 "> booting system...",
 "> loading modules...",
 "> initializing portfolio...",
-"> welcome!"
+"> activating X session..."
 ];
 const bootText=document.getElementById("bootText");
 const loadingBar=document.getElementById("loadingBar");
@@ -207,11 +220,18 @@ loadingBar.textContent=bar+' '+Math.floor(percent*100)+'%';
 
 /* ================= START PORTFOLIO ================= */
 function startPortfolio(){
+
 document.getElementById("bootScreen").style.display="none";
-[mainHeader,mainNav,home].forEach(el=>{
-el.style.display="block";
-setTimeout(()=>el.style.opacity=1,50);
-});
+
+// ukryj normalne portfolio
+document.getElementById("mainHeader").style.display="none";
+document.getElementById("mainNav").style.display="none";
+
+// pokaż GUI
+let gui=document.getElementById("portfolioGUI");
+gui.style.display="block";
+setTimeout(()=>gui.style.opacity=1,50);
+
 }
 
 /* ================= TERMINAL + EASTER EGGS ================= */
@@ -240,8 +260,50 @@ input="";
 }
 inputSpan.textContent=input;
 });
+setInterval(()=>{
+  let cpu=Math.floor(Math.random()*100);
+  let ram=(Math.random()*8).toFixed(1);
+
+  let status=document.getElementById("status");
+  if(status){  // zabezpieczenie żeby nie wywaliło błędu
+    status.textContent =
+    "CPU: "+cpu+"% | RAM: "+ram+"GB | STATUS: ONLINE";
+  }
+},1000);
 
 </script>
+<!-- ================= KDE GUI ================= -->
+<div id="portfolioGUI" style="display:none;opacity:0;transition:1s;">
+
+<div id="desktop" style="height:100vh;background:linear-gradient(120deg,#1a1a2e,#16213e);color:white;position:relative;">
+
+<div id="status" style="position:absolute;top:10px;right:10px;font-size:12px;color:#0f0;">
+CPU: 0% | RAM: 0GB | STATUS: ONLINE
+</div>
+
+<div class="window" style="top:80px;left:80px;">
+<div class="window-header">O mnie</div>
+<p>Borys - informatyk, hardware, dev</p>
+</div>
+
+<div class="window" style="top:120px;left:420px;">
+<div class="window-header">Projekty</div>
+<p>• Minecraft serwery<br>• BAT scripts<br>• VM testy</p>
+</div>
+
+<div class="window" style="top:250px;left:200px;">
+<div class="window-header">Historia</div>
+<p>2024 - start<br>2025 - rozwój<br>2026 - Portfolio OS</p>
+</div>
+
+<div id="taskbar" style="position:absolute;bottom:0;width:100%;background:#111;padding:10px;display:flex;gap:15px;">
+<div>Menu</div>
+<div>Terminal</div>
+<div>Files</div>
+</div>
+
+</div>
+</div>
 
 </body>
 </html>
