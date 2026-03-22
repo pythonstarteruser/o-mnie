@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>  
+<head>
+    <meta name="description" content="Ciekawostki o malcie.">
+<meta name="keywords" content="Malta,ciekawostki,zrobione na informatyce">
+<meta name="robots" content="index, follow">
+    <link rel="icon" href="https://raw.githubusercontent.com/pythonstarteruser/Ciekawostki-o-Malcie/refs/heads/main/Obrazy/MaltaLogo.ico">
+    <style>
+        .fade-in {
+    opacity: 0;              
+    transform: translateY(20px);
+    animation: fadeInAnim 1.5s forwards; 
+}
+
+@keyframes fadeInAnim {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    min-height: 100vh; /* kluczowa linia */
+    background-image: url("https://4kwallpapers.com/images/walls/thumbs_3t/3188.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        
+        .promo-left, .promo-right {
+            position: fixed;
+            top: 100px;
+            width: 160px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .promo-left {
+            left: 10px;
+        }
+
+        .promo-right {
+            right: 10px;
+        }
+
+        .promo-left img, .promo-right img {
+            width: 150px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .promo-left img:hover, .promo-right img:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 800px) {
+            .promo-left, .promo-right {
+                display: none;
+            }
+        }
+    </style>
+    <title>Malta</title>
+</head>
+<body>
+   <h1 class="fade-in">Ciekawostki o Malcie</h1> 
+    <div class="promo-left">
+        
+        
+    </div>
+<!-- Pasek postępu czytania (wszystko w jednym) -->
+<div id="readingProgress"></div>
+
+<script>
+/* Tworzymy styl paska */
+const style = document.createElement('style');
+style.textContent = `
+#readingProgress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 5px;
+  background: linear-gradient(90deg, #00ffff, #0080ff);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+`;
+document.head.appendChild(style);
+
+/* Funkcja aktualizująca pasek podczas przewijania */
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrollPercent = (scrollTop / scrollHeight) * 100;
+  document.getElementById('readingProgress').style.width = scrollPercent + '%';
+});
+</script>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Strona główna</a></li>
+                <li><a href="o autorze tej strony.html">O mnie</a></li>
+                <li><a href="Kontakt.html">Kontakt</a></li>
+                <li><a href="stara-wersja(1).html">Przejdź na starą wersję tej strony</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <b>Dowiesz się tutaj trochę o ciekawostkach Malty</b>
+        <p align="center"><h2>Malta jest piękna.</h2></p>
+        <p>Zdjęcie flagi Malty:</p>
+        <img src="https://www.gifss.com/banderas/malta/images/malta-05.gif" alt="Flaga Malty">
+
+        <h2><li> Malta jest najdalej na południe wysuniętym państwem Europy.
+        Leży w odległości 81 km na południe od Sycylii, w środkowej części Morza Śródziemnego.</h2></li>
+        
+
+<ul>
+<li>Malta ma ponad 300 słonecznych dni w roku i jest jednym z najbardziej słonecznych miejsc w Europie.</li>
+
+<li>Na Malcie obowiązuje ruch lewostronny – to pozostałość po czasach brytyjskich.</li>
+
+<li>Malta to jeden z najmniejszych krajów świata, ale jest silnie zaludniona.</li>
+
+<li>Na wyspie znajdują się jedne z najstarszych wolnostojących budowli na świecie – świątynie megalityczne, starsze od piramid w Egipcie.</li>
+
+<li>Tradycyjną przekąską Malty jest pastizzi – ciasto francuskie nadziewane ricottą lub grochem.</li>
+
+<li>Oficjalnymi językami są maltański i angielski, ale wielu mieszkańców mówi też po włosku.</li>
+
+<li>Na Malcie kręcono sceny do „Gry o Tron” i „Gladiatora”.</li>
+
+<li>Wiele budynków ma charakterystyczne kolorowe, drewniane balkony zwane “gallarija”.</li>
+</ul>
+
+  <h2>Pogoda z Malty
+      <!-- IFRAME: aktualna pogoda w Valletcie (Open-Meteo) -->
+<iframe
+    title="Pogoda Valletta"
+    style="width:100%;max-width:420px;height:140px;border:0;border-radius:10px;overflow:hidden;"
+    srcdoc='
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  body{font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#e6f7ff;margin:0;padding:12px;box-sizing:border-box;}
+  .card{display:flex;align-items:center;gap:12px;}
+  .icon{width:64px;height:64px;border-radius:8px;background:linear-gradient(135deg,#00334d,#005f7a);display:flex;align-items:center;justify-content:center;font-size:28px;}
+  .info{flex:1;}
+  .place{font-weight:700;font-size:15px;}
+  .temp{font-size:28px;font-weight:700;margin-top:4px;}
+  .meta{font-size:13px;color:#cfeff8;margin-top:6px;}
+  .small{font-size:12px;color:#99cbd6;margin-top:8px;}
+</style>
+</head>
+<body>
+<div id="root"><div class="place">Ładowanie pogody…</div></div>
+<script>
+(async ()=>{
+  try{
+    const lat=35.8989, lon=14.5146;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=auto`;
+    const res = await fetch(url);
+    if(!res.ok) throw new Error("Błąd pobierania");
+    const data = await res.json();
+    const cur = data.current_weather;
+    const weatherCode = cur.weathercode;
+    // prosty opis wg. głównych kodów (Open-Meteo weathercode)
+    const codeMap = {
+      0: "Czyste niebo",
+      1: "Głównie słonecznie",
+      2: "Częściowo chmurzaste",
+      3: "Całkowite zachmurzenie",
+      45: "Mgła",
+      48: "Osadzanie lodu (szron)",
+      51: "Lekki mròz (deszczowy)",
+      53: "Umiarkowany deszczowy",
+      55: "Gęsty deszczowy",
+      61: "Opady deszczu",
+      63: "Umiarkowane opady deszczu",
+      65: "Silne opady deszczu",
+      71: "Opady śniegu",
+      80: "Przelotne opady deszczu",
+      95: "Burze"
+    };
+    const desc = codeMap[weatherCode] || "Warunki: kodeks " + weatherCode;
+    const html = `
+      <div class="card">
+        <div class="icon">☀️</div>
+        <div class="info">
+          <div class="place">Valletta, Malta</div>
+          <div class="temp">${Math.round(cur.temperature)}°C</div>
+          <div class="meta">${desc} · Wiatr ${Math.round(cur.windspeed)} km/h</div>
+          <div class="small">Ostatnia aktualizacja: ${new Date(cur.time).toLocaleString()}</div>
+        </div>
+      </div>`;
+    document.getElementById("root").innerHTML = html;
+  }catch(e){
+    document.getElementById("root").innerHTML = "<div style=\"color:#ffbdbd\">Nie udało się pobrać pogody.</div>";
+    console.error(e);
+  }
+})();'
+</iframe>
+        <h2>Zdrapka o Prezydencie Malty
+            <!-- Zdrapka z prezydentem Malty -->
+<div class="scratch-card">
+  <canvas id="scratchCanvas" width="400" height="300"></canvas>
+  <div class="hidden-content">
+    <h3>Prezydent Malty</h3>
+    <p>Myriam Spiteri Debono</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Myriam_Spiteri_Debono_on_April_20%2C_2024_%28cropped%29.jpg" alt="Prezydent Malty" width="200">
+  </div>
+</div>
+
+<style>
+.scratch-card {
+  position: relative;
+  width: 400px;
+  height: 300px;
+  margin: 20px auto;
+  border: 2px solid #555;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.hidden-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+</style>
+
+<script>
+const canvas = document.getElementById('scratchCanvas');
+const ctx = canvas.getContext('2d');
+const width = canvas.width;
+const height = canvas.height;
+
+// Zakrycie obrazu kolorem szarym
+ctx.fillStyle = '#888';
+ctx.fillRect(0, 0, width, height);
+ctx.globalCompositeOperation = 'destination-out';
+
+let isDrawing = false;
+
+canvas.addEventListener('mousedown', () => isDrawing = true);
+canvas.addEventListener('mouseup', () => isDrawing = false);
+canvas.addEventListener('mouseout', () => isDrawing = false);
+
+canvas.addEventListener('mousemove', (e) => {
+  if(!isDrawing) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  ctx.beginPath();
+  ctx.arc(x, y, 20, 0, Math.PI * 2);
+  ctx.fill();
+});
+
+// Automatyczne odsłonięcie po 70% zdrapania
+function checkScratch() {
+  const imgData = ctx.getImageData(0,0,width,height);
+  let cleared = 0;
+  for(let i=0;i<imgData.data.length;i+=4){
+    if(imgData.data[i+3] === 0) cleared++;
+  }
+  if(cleared / (width*height) > 0.7) {
+    canvas.style.display = 'none';
+  } else {
+    requestAnimationFrame(checkScratch);
+  }
+}
+checkScratch();
+</script>
+
+        <h2><li> Stolicą Malty jest Valletta, nazywana niekiedy "muzeum pod gołym niebem".
+        Jest najdalej wysuniętą na południe stolicą europejską i jednym z najbardziej zagęszczonych obszarów zabytkowych na świecie (posiada 320 zabytków). Znajduje się na liście światowego dziedzictwa UNESCO. Valletta jest najbardziej słoneczną miejscowością Europy.</h2></li>
+        <h2><li>Blue Lagoon jest najpopularniejszym miejscem do popływania i odpoczynku zlokalizanym na wyspie Gozo</li></h2>
+        <h2><li> Najpopularniejszym daniem na Malcie jest Delfin</h2></li>
+        <p>Mini gierka o Malcie w Scratchu:</p>
+        <iframe src="https://scratch.mit.edu/projects/33857530/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
+        <h2>Wideo w stylu VR płynięcie statkiem na Blue Lagoon</h2>
+<iframe width="560" height="315" 
+        src="https://www.youtube.com/embed/SDDTiJhtq-4" 
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+</iframe> 
+        <h3><li>Narodowe Akwarium Malty jest jedynym akwarium na Malcie zlokalizowanym na 
+        <a href="https://www.google.pl/maps/place/Narodowe+Akwarium+Malty/@35.9584978,14.4206835,17z/data=!3m1!4b1!4m6!3m5!1s0x130e4efd1fe908d5:0x8db8cd849c4a7d71!8m2!3d35.9584978!4d14.4232584!16s%2Fg%2F1pp2tk0f_?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D">Triq it-Trunciera, San Pawl il-Bahar</a></h3>
+        <h3>Doświadczysz tam bardzo dużo różnych atrakcji, np. atak ośmiornicy na Twój wirtualny statek i zobaczysz różne typy ryb</h3></li>
+        <a href="https://www.aquarium.com.mt"><button>Bilety</button></a>
+        <h2>Ciekawostki o Malcie</h2>
+<table border="1" cellpadding="10" cellspacing="0" bgcolor="#f2f2f2">
+    <tr bgcolor="#ffcc99">
+        <th>Ciekawostka</th>
+        <th>Szczegóły</th>
+    </tr>
+    <tr bgcolor="#fff2cc">
+        <td>Najwyższy punkt</td>
+        <td>Ta' Dmejrek – 253 m n.p.m.</td>
+    </tr>
+    <tr bgcolor="#ccffcc">
+        <td>Populacja</td>
+        <td>Około 520 000 mieszkańców</td>
+    </tr>
+    <tr bgcolor="#fff2cc">
+        <td>Języki urzędowe</td>
+        <td>Maltański i angielski</td>
+    </tr>
+    <tr bgcolor="#ccffcc">
+        <td>Stolica</td>
+        <td>Valletta – muzeum pod gołym niebem</td>
+    </tr>
+    <tr bgcolor="#fff2cc">
+        <td>Popularna plaża</td>
+        <td>Blue Lagoon na Gozo</td>
+    </tr>
+</table>
+        <a href="https://www.visitmalta.com" target="_blank"><button>Odwiedź Malta Official</button></a>
+        <h3>Polecam zakupić jakieś pamiątki z Malty dla rodziny prosto z lotniska</h3>
+        <h3>Poniżej informacje o najlepszym i jednocześnie tanim hotelu na Malcie</h3>
+        <h3>
+            <details>Polecam bardzo hotel AX ODYCY z oceną 9,3. Ma dwa baseny, Spa i siłownię, a śniadania są niesamowite. 
+            </details>
+        </h3>
+        <h3><p style="color: yellow;">Koniecznie odwiedź Balluta Bay Beach i Mellieha Beach</p></h3>
+        <script>
+const elements = document.querySelectorAll('.scroll-fade');
+
+window.addEventListener('scroll', () => {
+    const triggerBottom = window.innerHeight * 0.9;
+
+    elements.forEach(el => {
+        const elTop = el.getBoundingClientRect().top;
+
+        if (elTop < triggerBottom) {
+            el.classList.add('visible');
+        }
+    });
+});
+</script>
+        <div class="neon-github">
+    <span>Hosting by GitHub Pages</span>
+    <a href="https://pages.github.com/" target="_blank">
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+    </a>
+</div>
+
+<style>
+.neon-github {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    z-index: 9999;
+}
+
+.neon-github span {
+    display: inline-block;
+    margin-bottom: 6px;
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #00ffff;
+    background: rgba(0,0,0,0.85);
+    border: 1px solid #00ffff;
+    text-shadow:
+        0 0 4px #00ffff,
+        0 0 8px #00ffff,
+        0 0 16px #00ffff;
+    box-shadow:
+        0 0 6px #00ffff,
+        0 0 12px #00ffff,
+        0 0 24px #00ffff;
+}
+
+.neon-github img {
+    width: 60px;
+    margin-top: 6px;
+    background: black;
+    border-radius: 50%;
+    padding: 8px;
+    border: 2px solid #00ffff;
+    box-shadow:
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        inset 0 0 10px #00ffff;
+    transition: 0.3s ease;
+}
+
+.neon-github img:hover {
+    transform: scale(1.15) rotate(6deg);
+    box-shadow:
+        0 0 20px #00ffff,
+        0 0 40px #00ffff,
+        inset 0 0 15px #00ffff;
+}
+</style>
+
+
+        <iframe width="640px" height="480px" src="https://forms.office.com/Pages/ResponsePage.aspx?id=wnq1f2cSi029g4qJgRbJDBavn5DuFEtPsb0NC1V04_xUNjAzTzJGSjNaUE00UlZTQ0s0WkpWTVhTUS4u&embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen></iframe>
+    </main>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

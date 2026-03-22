@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+   <head>
+	    <link rel="icon" href="https://raw.githubusercontent.com/pythonstarteruser/Ciekawostki-o-Malcie/refs/heads/main/Obrazy/MaltaLogo.ico">
+    <style>
+        .fade-in {
+    opacity: 0;              /* niewidoczne na start */
+    transform: translateY(20px); /* lekko przesunięte w dół */
+    animation: fadeInAnim 1.5s forwards; /* animacja 1.5s */
+}
+
+@keyframes fadeInAnim {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+        body {
+            background-image: url("https://4kwallpapers.com/images/walls/thumbs_3t/3188.jpg");
+            background-size: cover;
+            max-width: 800px;
+            margin: auto;
+            line-height: 1.6;
+            padding: 20px;
+            position: relative;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        
+        .promo-left, .promo-right {
+            position: fixed;
+            top: 100px;
+            width: 160px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .promo-left {
+            left: 10px;
+        }
+
+        .promo-right {
+            right: 10px;
+        }
+
+        .promo-left img, .promo-right img {
+            width: 150px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .promo-left img:hover, .promo-right img:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 800px) {
+            .promo-left, .promo-right {
+                display: none;
+            }
+        }
+    </style>
+    <title>Malta-O mnie</title>
+</head>
+<body>
+   <h1 class="fade-in">Ciekawostki o Malcie</h1> 
+    <div class="promo-left">
+        <a href="https://ubuntu.com" target="_blank">
+            <img src="https://raw.githubusercontent.com/pythonstarteruser/Ciekawostki-o-Malcie/refs/heads/main/Obrazy/Ubuntu.png" alt="Ubuntu">
+        </a>
+    </div>
+
+    <div class="promo-right">
+        <a href="https://www.samsung.com/pl/watches/galaxy-watch8/buy/?modelCode=SM-L330NDAAEUE" target="_blank">
+            <img src="https://raw.githubusercontent.com/pythonstarteruser/Ciekawostki-o-Malcie/refs/heads/main/Obrazy/GalaxyWatch8.gif" alt="Galaxy Watch 8 with new One UI 8 watch">
+        </a>
+    </div>
+	   <header>
+	   <nav>
+	     <ul>
+	         <li><a href="index.html">Strona glowna</a></li>
+	         <li><a href="o autorze tej strony.html">O mnie</a></li>
+			 <li><a href="Kontakt.html">Kontakt</a></li>
+	         </ul>
+	       </nav>
+	   </header>
+	   <main></main>
+   <h1><p style="color: yellow;">O mnie</h1></p><br>
+   <h2><p style="color: yellow;">Ta strona zostala utworzona przez Borysa Stanczaka na lekcjach informatyki</h2></p><br>
+   <br>
+   <br>
+   <h1><p style="color: yellow;">Podziekowania:</h1></p><br>
+   <h2><p style="color: yellow;">1.Pani od Informatyki</h2></p><details><p style="color: yellow;">Bardzo dziekuje Pani za to co Pani zrobila dla naszej klasy czyli pomagala nam pani w niektorych pracach np. Excel i Gimp. Jeszcze raz bardzo dziekuje za Uczenie nas. Jestem bardzo Szczesliwy ze to Pani nas uczy a nie poprzedni Pan od Informatyki.</details></p><br>
+   <h2><p style="color: yellow;">2.Cala klasa</h2></p><details><p style="color: yellow;">Dziekuje calej klasie za to ze moge wam pomoc z roznymi rzeczami na Informatyce.</details></p>
+   <h2><p style="color: yellow;">3.Testerzy tej strony</h2></p><p style="color: yellow;">testerzy wiedzą o które osoby chodzi.</details></p>
+</body>
+</html>  
